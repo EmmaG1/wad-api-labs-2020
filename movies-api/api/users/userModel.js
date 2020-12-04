@@ -3,8 +3,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const MovieSchema = new Schema({
-    id: Number,
-    title: String
+    id: {type: Number, required: true}, //week 9 added id:{ , required:true}
+    name: {type: String, required: true} //week 9 added ^
+    
   });
 
 const UserSchema = new Schema({
