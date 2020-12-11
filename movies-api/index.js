@@ -7,7 +7,8 @@ import {loadUsers} from './seedData';
 import usersRouter from './api/users';
 //added 11/12
 import session from 'express-session';
-import authenticate from './authenticate';
+//import authenticate from './authenticate';
+import passport from './authenticate';
 
 dotenv.config();
 
@@ -35,6 +36,9 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+// initialise passport​
+app.use(passport.initialize());
+
 //added 11/12
 app.use(session({
   secret: 'ilikecake',
@@ -42,12 +46,16 @@ app.use(session({
   saveUninitialized: true
 }));
 
+// Add passport.authenticate(..)  to middleware stack for protected routes​
+app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
+
+
 //Users router
 app.use('/api/users', usersRouter);
 app.use(express.static('public'));
 //app.use('/api/movies', moviesRouter);
 //updated above line: 
-app.use('/api/movies', authenticate, moviesRouter);
+//app.use('/api/movies', authenticate, moviesRouter); //postsRouter or moviesRouter
 app.use(errHandler);
 
 
