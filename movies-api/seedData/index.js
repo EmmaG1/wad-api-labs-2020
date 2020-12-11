@@ -1,4 +1,6 @@
 import userModel from '../api/users/userModel';
+import {movies} from './movies.js';
+import movieModel from '../api/movies/movieModel' //new
 
 const users = [
   {
@@ -11,7 +13,7 @@ const users = [
   },
 ];
 
-// deletes all user documents in collection and inserts test data OLD
+//deletes all user documents in collection and inserts test data OLD
 // export async function loadUsers() {
 //   console.log('load user Data');
 //     try {
@@ -23,6 +25,7 @@ const users = [
 //     }
 //   }
 
+//new
 export async function loadUsers() {
   console.log('load user Data');
     try {
@@ -33,3 +36,16 @@ export async function loadUsers() {
       console.error(`failed to Load user Data: ${err}`);
     }
   }
+
+  // deletes all movies documents in collection and inserts test data
+export async function loadMovies() {
+  console.log('load seed data');
+  console.log(movies.length);
+  try {
+    await movieModel.deleteMany();
+    await movieModel.collection.insertMany(movies);
+    console.info(`${movies.length} Movies were successfully stored.`);
+  } catch (err) {
+    console.error(`failed to Load movie Data: ${err}`);
+  }
+}

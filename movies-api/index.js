@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import moviesRouter from './api/movies';
 import bodyParser from 'body-parser';
-import {loadUsers} from './seedData';
+//import movieModel from './api/movies/movieModel'
+import {loadUsers, loadMovies} from './seedData';
 import usersRouter from './api/users';
 //added 11/12
 import session from 'express-session';
@@ -14,6 +15,7 @@ dotenv.config();
 
 if (process.env.SEED_DB) {
   loadUsers();
+  loadMovies();
 }
 
 
