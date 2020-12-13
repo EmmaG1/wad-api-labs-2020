@@ -3,29 +3,17 @@ import bcrypt from 'bcrypt-nodejs';
 
 const Schema = mongoose.Schema;
 
-const MovieSchema = new Schema({
-    id: {type: Number, required: true}, //week 9 added id:{ , required:true}
-    name: {type: String, required: true} //week 9 added ^
-    
-  });
 
 const UserSchema = new Schema({
   username: { type: String, unique: true, required: true},
-  password: {type: String, required: true },
-  favourites: [MovieSchema]
+  password: {type: String, required: true , match: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}/},
+  favourites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movies'}]
 });
 
 UserSchema.statics.findByUserName = function (username) {
   return this.findOne({ username: username });
 };
-//old 
-// UserSchema.methods.comparePassword = function (candidatePassword) {
-//   const isMatch = this.password === candidatePassword;
-//   if (!isMatch) {
-//     throw new Error('Password mismatch');
-//   }
-//   return this;
-// };
+
 
 //added 11/12
 UserSchema.methods.comparePassword = function(passw, cb) {
