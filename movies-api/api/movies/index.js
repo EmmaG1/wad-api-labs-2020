@@ -12,7 +12,7 @@ const router = express.Router();
 //   .catch((error) => next(error));
 // });
 
-//new ss
+//new ssss
 router.get('/', (req, res, next) => {
   movieModel.find().then(movies => res.status(200).send(movies)).catch(next);
 });
