@@ -66,7 +66,7 @@ router.post('/:userName/favourites', async (req, res, next) => {
   res.status(201).json(user); 
 });
 
-// Update a user ss
+// Update a user ssss
 router.put('/:id',  (req, res, next) => { //added next here
     if (req.body._id) delete req.body._id;
      User.update({
